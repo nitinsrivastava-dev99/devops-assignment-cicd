@@ -1,0 +1,44 @@
+name: DevOps CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Test Website
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify website files
+        run: |
+          test -f index.html
+          test -f style.css
+          test -f script.js
+          echo "All website files are present"
+
+  build:
+    name: Build Website
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create deployment package
+        run: |
+          mkdir build
+          cp index.html style.css script.js build/
+          echo "Build completed successfully"
+
+      - name: Verify build
+        run: |
+          test -f build/index.html
+          test -f build/style.css
+          test -f build/script.js
+          echo "Build verification successful"
