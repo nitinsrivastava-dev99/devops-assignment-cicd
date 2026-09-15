@@ -18,8 +18,7 @@ jobs:
         run: |
           test -f index.html
           test -f style.css
-          test -f script.js
-          echo "All website files are present"
+          echo "Website files are present"
 
   build:
     name: Build Website
@@ -33,14 +32,13 @@ jobs:
       - name: Create deployment package
         run: |
           mkdir build
-          cp index.html style.css script.js build/
+          cp index.html style.css build/
           echo "Build completed successfully"
 
       - name: Verify build
         run: |
           test -f build/index.html
           test -f build/style.css
-          test -f build/script.js
           echo "Build verification successful"
 
       - name: Upload build artifact
